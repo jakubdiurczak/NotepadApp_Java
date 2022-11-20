@@ -4,12 +4,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 
-public class WindowPanel extends JPanel implements ActionListener {
+public class Source extends JPanel implements ActionListener {
 
     JPanel panelPath = new JPanel();
     JPanel panelButton = new JPanel();
@@ -24,8 +21,8 @@ public class WindowPanel extends JPanel implements ActionListener {
     JFileChooser fileChooser = new JFileChooser();
 
 
-    WindowPanel(){
-        setLayout(new BorderLayout());
+    Source(){
+        this.setLayout(new BorderLayout());
 
         this.add(panelPath, BorderLayout.NORTH);
         panelPath.setLayout(new BorderLayout());
@@ -78,7 +75,7 @@ public class WindowPanel extends JPanel implements ActionListener {
 
     private String selectFilePath(){
         String pathToFile = null;
-        int result = fileChooser.showOpenDialog(WindowPanel.this);
+        int result = fileChooser.showOpenDialog(Source.this);
         if (result == JFileChooser.APPROVE_OPTION) {
             File selectedFile = fileChooser.getSelectedFile();
             pathToFile = selectedFile.getAbsolutePath();
