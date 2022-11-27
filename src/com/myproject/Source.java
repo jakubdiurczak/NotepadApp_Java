@@ -8,22 +8,19 @@ import java.io.*;
 
 public class Source extends JPanel implements ActionListener {
 
-    JPanel panelPath = new JPanel();
-    JPanel panelButton = new JPanel();
-    JPanel panelText = new JPanel();
-    JButton buttonOpen = new JButton("Open file");
-    JButton buttonSave = new JButton("Save file");
-    JButton buttonClean = new JButton("Clean all");
-    JButton buttonFile = new JButton("Select");
-    JTextField fieldPath = new JTextField("file.txt",10);
-    JTextArea textArea = new JTextArea();
-    JScrollPane textAreaScroll = new JScrollPane(textArea);
-    JFileChooser fileChooser = new JFileChooser();
+    private final JButton buttonOpen = new JButton("Open file");
+    private final JButton buttonSave = new JButton("Save file");
+    private final JButton buttonClean = new JButton("Clean all");
+    private final JButton buttonFile = new JButton("Select");
+    private final JTextField fieldPath = new JTextField("file.txt",10);
+    private final JTextArea textArea = new JTextArea();
+    private final JFileChooser fileChooser = new JFileChooser();
 
 
     Source(){
         this.setLayout(new BorderLayout());
 
+        JPanel panelPath = new JPanel();
         this.add(panelPath, BorderLayout.NORTH);
         panelPath.setLayout(new BorderLayout());
         panelPath.add(new JLabel("Path to file: "), BorderLayout.WEST);
@@ -31,13 +28,16 @@ public class Source extends JPanel implements ActionListener {
         panelPath.add(buttonFile, BorderLayout.EAST);
         buttonFile.addActionListener(this);
 
+        JPanel panelText = new JPanel();
         this.add(panelText, BorderLayout.CENTER);
         panelText.setLayout(new BorderLayout());
         textArea.setLineWrap(true);
         textArea.setWrapStyleWord(true);
+        JScrollPane textAreaScroll = new JScrollPane(textArea);
         textAreaScroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         panelText.add(textAreaScroll, BorderLayout.CENTER);
 
+        JPanel panelButton = new JPanel();
         this.add(panelButton, BorderLayout.SOUTH);
         panelButton.add(buttonOpen);
         panelButton.add(buttonSave);
@@ -83,6 +83,7 @@ public class Source extends JPanel implements ActionListener {
         return pathToFile;
     }
 
+    @SuppressWarnings("ThrowablePrintedToSystemOut")
     private String openFile(String pathToFile){
         StringBuilder textRead = new StringBuilder();
         try {
@@ -98,6 +99,7 @@ public class Source extends JPanel implements ActionListener {
         return textRead.toString();
     }
 
+    @SuppressWarnings("ThrowablePrintedToSystemOut")
     private void saveFile(String pathToFile, String contentText){
         try {
             FileWriter fileWriter = new FileWriter(pathToFile);
