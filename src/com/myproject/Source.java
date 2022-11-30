@@ -49,26 +49,29 @@ public class Source extends JPanel implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(e.getSource() == buttonOpen && !fieldPath.getText().isBlank()){
+
+        if(e.getSource() == buttonOpen){
+            if(fieldPath.getText().isBlank()){
+                fieldPath.setText(selectFilePath());
+            }
             textArea.setText(openFile(fieldPath.getText()));
         }
 
         if(e.getSource() == buttonSave){
-            String pathToFile = fieldPath.getText();
-            if(pathToFile.length() == 0) {
-                pathToFile = selectFilePath();
-                fieldPath.setText(pathToFile);
+            if(fieldPath.getText().isBlank()) {
+                fieldPath.setText(selectFilePath());
             }
-            saveFile(pathToFile, textArea.getText());
+            saveFile(fieldPath.getText(), textArea.getText());
         }
 
         if(e.getSource() == buttonClean){
             textArea.setText(null);
-            fieldPath.setText("");
+            fieldPath.setText(null);
         }
 
         if(e.getSource() == buttonFile){
             fieldPath.setText(selectFilePath());
+            textArea.setText(openFile(fieldPath.getText()));
         }
 
     }
@@ -83,7 +86,6 @@ public class Source extends JPanel implements ActionListener {
         return pathToFile;
     }
 
-    @SuppressWarnings("ThrowablePrintedToSystemOut")
     private String openFile(String pathToFile){
         StringBuilder textRead = new StringBuilder();
         try {
@@ -94,19 +96,18 @@ public class Source extends JPanel implements ActionListener {
             }
             fileReader.close();
         } catch (IOException e) {
-            System.out.println(e);
+            System.out.println(e.getMessage());
         }
         return textRead.toString();
     }
 
-    @SuppressWarnings("ThrowablePrintedToSystemOut")
     private void saveFile(String pathToFile, String contentText){
         try {
             FileWriter fileWriter = new FileWriter(pathToFile);
             fileWriter.write(contentText);
             fileWriter.close();
         } catch (IOException e) {
-            System.out.println(e);
+            System.out.println(e.getMessage());
         }
     }
 
